@@ -33,7 +33,7 @@ class Product(Base):
     __tablename__ = 'products'
     id: Mapped[int] = mapped_column(primary_key=True)
     title: Mapped[str]
-    price: Mapped[float] = mapped_column(DECIMAL)
+    description: Mapped[str]
 
 
 class AddTask(StatesGroup):
