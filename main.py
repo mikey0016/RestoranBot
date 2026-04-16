@@ -113,6 +113,61 @@ def uz_hot_food_menu_button():
     markup = rkb.as_markup(resize_keyboard=True)
     return markup
 
+def en_menu_contact_button():
+    rkb = ReplyKeyboardBuilder()
+    rkb.add(*[
+        KeyboardButton(text="🍽Restaurant menu"),
+        KeyboardButton(text="📞Contact us"),
+    ])
+    rkb.adjust(2, repeat=True)
+    markup = rkb.as_markup(resize_keyboard=True)
+    return markup
+
+def en_restoran_menu_button():
+    rkb = ReplyKeyboardBuilder()
+    rkb.add(*[
+        KeyboardButton(text="🥗Salads"),
+        KeyboardButton(text="🍕FastFood"),
+        KeyboardButton(text="🍜Hot dishes"),
+        KeyboardButton(text="⬅️Back(Not working)"),
+    ])
+    rkb.adjust(2, repeat=True)
+    markup = rkb.as_markup(resize_keyboard=True)
+    return markup
+
+def en_salat_menu_button():
+    rkb = ReplyKeyboardBuilder()
+    rkb.add(*[
+        KeyboardButton(text="🥗Caesar salad",),
+        KeyboardButton(text="🥗Olivier salad"),
+        KeyboardButton(text="⬅️Back(Not working)")
+    ])
+    rkb.adjust(2, repeat=True)
+    markup = rkb.as_markup(resize_keyboard=True)
+    return markup
+
+
+def en_fast_food_menu_button():
+    rkb = ReplyKeyboardBuilder()
+    rkb.add(*[
+        KeyboardButton(text="🍔Burger"),
+        KeyboardButton(text="🌭Hot-dog"),
+        KeyboardButton(text="⬅️Back(Not working)")
+    ])
+    rkb.adjust(2, repeat=True)
+    markup = rkb.as_markup(resize_keyboard=True)
+    return markup
+
+def en_hot_food_menu_button():
+    rkb = ReplyKeyboardBuilder()
+    rkb.add(*[
+        KeyboardButton(text="🍛Palov"),
+        KeyboardButton(text="🥘Soup"),
+        KeyboardButton(text="⬅️Back(Not working)")
+    ])
+    rkb.adjust(2, repeat=True)
+    markup = rkb.as_markup(resize_keyboard=True)
+    return markup
 
 
 @dp.message(CommandStart())
@@ -230,6 +285,104 @@ async def back_resto_handler(message:Message, state:FSMContext, i18n:I18n):
 async def contact_menu_handler(message: Message, state:FSMContext, i18n:I18n):
     await message.reply("Assalomu alaykum hurmatli mijoz!\n\nBiz bilan bog'lanish uchun adminlarga murojat qiling!\n\n"
                         "Telegram:@zen1n_xz\nTelefon raqam:+998 95 098 99 50\nGitHub:https://github.com/mikey0016")
+
+
+@dp.message(F.text == "🇺🇸English")
+async def restoran_menu_handler(message:Message, state:FSMContext, i18n:I18n):
+    markup = en_menu_contact_button()
+    await state.update_data(({'locale':'en'}))
+    i18n.current_locale = 'en'
+    await message.reply(f"Dear customer, you have chosen the English language!")
+    await message.reply(_("Asosiy Menyu"), reply_markup=markup())
+
+@dp.message(F.text == "⬅️Back(Not working)")
+async def back_main_handler(message:Message, state:FSMContext, i18n:I18n):
+    await message.reply("Main menuga qaytish tanlandi!",reply_markup=uz_menu_contact_button())
+
+
+@dp.message(F.text == "🥗Salads")
+async def restoran_menu_handler(message:Message,  state:FSMContext, i18n:I18n):
+    markup = en_salat_menu_button()
+    await state.update_data(({'locale': 'en'}))
+    i18n.current_locale = 'en'
+    await message.reply(_("Salatlar menusi:"), reply_markup=markup)
+
+@dp.message(F.text == "🥗Caesar salad")
+async def salat_info_handler(message:Message,  state:FSMContext, i18n:I18n):
+    caption = (f"Salad name: Caesar\n"
+               f"Salad ingredients: Mayonnaise, peas and ketchup\n"
+               f"They didn't bother looking for information, that's all!")
+    await message.answer_photo("https://www.youtube.com/watch?v=mOGA_tnfZB0", caption=caption)
+
+@dp.message(F.text == "🥗Olivye salati")
+async def salat_info_handler(message:Message,  state:FSMContext, i18n:I18n):
+    caption = (f"Salad name: Olivier salad\n"
+               f"Salad ingredients: Mayonnaise, peas and ketchup\n"
+               f"They didn't bother looking for information, that's all!")
+    await message.answer_photo("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_HkQX3QBM5aUhaxvTcIv5ZCwrHRYrGE8elozGjBofAe6DaRiVdgPGVNgYhTZuMtimtv934eAEoRsT5nlA-QT3vayAa94wodORYKe556Vn4Q&s=10", caption=caption)
+
+
+# @dp.message(F.text == "🔙Orqaga")
+# async def back_resto_handler(message:Message, state:FSMContext, i18n:I18n):
+#     await message.reply("Restoran menuga qaytish tanlandi!",reply_markup=uz_restoran_menu_button())
+
+@dp.message(F.text == "🍕FastFood")
+async def restoran_menu_handler(message:Message, state:FSMContext, i18n:I18n):
+    markup = en_fast_food_menu_button()
+    await state.update_data(({'locale': 'en'}))
+    i18n.current_locale = 'en'
+    await message.reply(_("FastFood menusi:"), reply_markup=markup)
+
+@dp.message(F.text == "🍔Burger")
+async def fast_food_info_handler(message:Message,  state:FSMContext, i18n:I18n):
+    caption = (f"FastFood name: Burger\n"
+               f"Burger ingredients: Meat, tomato, cucumber, ketchup and mayonnaise\n"
+               f"They didn't bother looking for information, that's all!")
+    await message.answer_photo("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzJnmtwDHHhuzJCW_4SCJwwc3vnbk0qU-NocB32Dleoc7kNSXjtSgtTsNewxPePl3Jdn86t2Dd3OcZffc2YWbkr6a2BOicdkr1hsvv8kphTA&s=10", caption=caption)
+
+@dp.message(F.text == "🌭Hot-dog")
+async def fast_food_info_handler(message:Message,  state:FSMContext, i18n:I18n):
+    caption = (f"FastFood name: Hot-dog\n"
+               f"Hot-dog ingredients: Sausage, chimchi, ketchup and mayonnaise\n"
+               f"They didn't bother looking for information, that's all!")
+    await message.answer_photo("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWdd5PXtc1otdQymI70qQlfenwekV15ZBoNsu5UDulnJhzgFs31660A55e3-ZVVuSXvuXfmRsdjBnJ-YigCLgg1RBQSlBYDZPD1IwPjFev&s=10", caption=caption)
+
+
+# @dp.message(F.text == "🔙Orqaga")
+# async def back_resto_handler(message:Message, state:FSMContext, i18n:I18n):
+#     await message.reply("Restoran menuga qaytish tanlandi!",reply_markup=uz_restoran_menu_button())
+
+
+@dp.message(F.text == "🍜Hot dishes")
+async def restoran_menu_handler(message: Message, state:FSMContext, i18n:I18n):
+    markup = en_hot_food_menu_button()
+    await state.update_data(({'locale': 'en'}))
+    i18n.current_locale = 'en'
+    await message.reply(_("Issiq taomlar menusi:"), reply_markup=markup)
+
+@dp.message(F.text == "🍛Palov")
+async def hot_dish_info_handler(message:Message,  state:FSMContext, i18n:I18n):
+    caption = (f"Name of hot dish: Soup\n"
+               f"Soup ingredients: Meat, rice, carrots, raisins, onions and peas\n"
+               f"They didn't bother looking for information, that's all!")
+    await message.answer_photo("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSObW99u4f5TOj_tzTWPIgFt7pmfu8NkW1tDQanyqw42e4ecWmde5yj6bVnJMvoYPWAKaMNF8Gih0TNzUavU48W3QkfsV4CrZ_fNdJSDYNa7A&s=10", caption=caption)
+
+@dp.message(F.text == "🥘Soup")
+async def hot_dish_info_handler(message:Message,  state:FSMContext, i18n:I18n):
+    caption = (f"Name of hot dish: Soup\n"
+               f"Soup ingredients: Meat, water, oil, carrots, onions and peas\n"
+               f"They didn't bother looking for information, that's all!")
+    await message.answer_photo("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIV6OwqULkjMtkzQ4TL-o7UzI9dw9nxYiciGgQXAxp3ZTT54fsnSrZib0UEVAnCmKzosp1xm9ofm7YFwjVcDTlRaN_7bADtAly9lBFilpuHA&s=10", caption=caption)
+
+
+# @dp.message(F.text == "🔙Orqaga")
+# async def back_resto_handler(message:Message, state:FSMContext, i18n:I18n):
+#     await message.reply("Restoran menuga qaytish tanlandi!",reply_markup=uz_restoran_menu_button())
+
+@dp.message(F.text == "📞Contact us")
+async def contact_menu_handler(message: Message, state:FSMContext, i18n:I18n):
+    await message.reply("Hello, dear customer!\n\nPlease contact the admins to contact us!\n\n"
+                        "Telegram:@zen1n_xz\nPhone number:+998 95 098 99 50\nGitHub:https://github.com/mikey0016")
 
 async def main() -> None:
     Base.metadata.create_all(engine)

@@ -22,5 +22,18 @@ msgstr ""
 msgid "Asosiy menyu"
 msgstr "Main menu"
 
+msgid "Salatlar menusi:"
+msgstr "Salads menu:"
+
+msgid "FastFood menusi:"
+msgstr "FastFood menu:"
+
+msgid "Issiq taomlar menusi:"
+msgstr "Hot Dishes menu:"
+
+
+
+
+
 
 
