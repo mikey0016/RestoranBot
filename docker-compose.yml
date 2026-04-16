@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  test:
+    build: .
+    image: exam_bot:alpine
+    container_name: exam_con
+    restart: always
+    command: "python3 main.py"
+
+  pg:
+    image: postgres:alpine
+    container_name: test_db
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: Faxa2000
+    ports:
+      - "5434:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+volumes:
+  pg_data:
