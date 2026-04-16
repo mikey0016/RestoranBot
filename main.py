@@ -22,7 +22,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 TOKEN = getenv("BOT_TOKEN")
-engine = create_engine('postgresql+psycopg2://postgres:Faxa2000@localhost/postgres')
+engine = create_engine('postgresql+psycopg2://postgres:Faxa2000@pg/postgres')
 session = Session(engine)
 
 
